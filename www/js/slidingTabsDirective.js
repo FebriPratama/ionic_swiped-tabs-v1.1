@@ -232,15 +232,22 @@ var slidingTabsDirective = angular.module("ionic").directive('ionSlideTabs', ['$
             scope.tabs = [];
 
             scope.addTabContent = function ($content) {
+              
+                var check = false;
+                for(var i = 0; i < scope.tabs.length;i++){  
+                  if(angular.equals($content, scope.tabs[i])) check = true;
+                }
 
-                scope.tabs.push($content);
-                scope.$apply();
+                if(!check){
+                  scope.tabs.push($content);
+                  //scope.$apply();
 
-                $timeout(function() {
-                    slideTabs = angular.element(tabsBar[0].querySelector("ul").querySelectorAll(".slider-slide-tab"));
-                    slideToCurrentPosition();
-                    setTabBarWidth()
-                })
+                  $timeout(function() {
+                      slideTabs = angular.element(tabsBar[0].querySelector("ul").querySelectorAll(".slider-slide-tab"));
+                      slideToCurrentPosition();
+                      setTabBarWidth();
+                  })
+                }
 
             }
 
